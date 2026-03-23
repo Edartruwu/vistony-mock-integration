@@ -4,15 +4,12 @@ Plataforma interactiva para probar la **API de Vistony**: un servicio de analisi
 
 ## Arquitectura
 
-```
-┌─────────────┐        ┌─────────────┐        ┌──────────────────┐
-│             │  HTTP   │             │  HTTP   │                  │
-│  Frontend   │───────> │   Backend   │───────> │  Vistony API     │
-│  (React)    │        │  (Bun/Hono) │        │  (produccion)    │
-│  puerto 80  │ <───── │  puerto 3001│ <───── │                  │
-│             │        │             │        │                  │
-└─────────────┘        └─────────────┘        └──────────────────┘
-     nginx                  proxy
+```mermaid
+graph LR
+    A["Frontend<br/>(React + nginx)<br/>puerto 80"] -- HTTP --> B["Backend<br/>(Bun + Hono)<br/>puerto 3001"]
+    B -- HTTP --> C["Vistony API<br/>(produccion)"]
+    C -- Respuesta --> B
+    B -- Respuesta --> A
 ```
 
 - **Frontend**: Aplicacion React con interfaz de 5 pestanas (Resumen, Subir, Analizar, Webhooks, Historial)
